@@ -1,0 +1,23 @@
+version: '3'
+
+env:
+  PATH:
+    sh: echo "$PATH:$(go env GOPATH)/bin"
+  REVISION:
+    sh: git describe --always
+
+tasks:
+  generate:
+    desc: Generate the project
+    cmds:
+      - cp pj_config_site.h.in ../../3rdparty/pjproject/pjlib/include/pj/config_site.h
+      - PATH=$PATH:$(go env GOPATH)/bin go generate ./...
+  check.generate:
+    desc: Check if the generated code is in sync
+    cmds:
+      - task: generate
+      - >-
+        git diff --quiet || (
+          echo "Generated code is out of sync. Please run 'task generate' and commit the changes." &&
+          exit 1
+        )

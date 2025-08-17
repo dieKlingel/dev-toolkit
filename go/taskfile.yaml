@@ -1,0 +1,6 @@
+version: '3'
+
+includes:
+  pjsua2: 
+    taskfile: pjsua2/taskfile.yaml
+    dir: pjsua2
