@@ -10,7 +10,6 @@ tasks:
   generate:
     desc: Generate the project
     cmds:
-      - cp pj_config_site.h.in ../../3rdparty/pjproject/pjlib/include/pj/config_site.h
       - PATH=$PATH:$(go env GOPATH)/bin go generate ./...
   check.generate:
     desc: Check if the generated code is in sync
